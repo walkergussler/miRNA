@@ -8,7 +8,6 @@ from sklearn.cluster import AgglomerativeClustering as AGG
 from sklearn.cluster import KMeans, DBSCAN, SpectralClustering
 from sklearn.model_selection import cross_val_score, train_test_split, KFold
 from sklearn.ensemble import RandomForestClassifier
-#import matplotlib as plt
 
 #Define auxilary functions
 def runRNAfold(file):
@@ -67,7 +66,6 @@ def randomForest(X,Y):
     model = RandomForestClassifier(n_estimators=num_trees, max_features=3)
     model.fit(X_train, Y_train)
     predicted = model.predict(X_test)
-    #print "Prediction is", predicted
     kfold = KFold(n_splits=5, random_state=7)
     model = RandomForestClassifier(n_estimators=num_trees, max_features=3)
     results = cross_val_score(model, X, Y, cv=kfold)
@@ -75,7 +73,6 @@ def randomForest(X,Y):
     print('Supervised methods score: %.3f' % acc)
 
 #unsupervised clustering methods
-
 def kmeans(X):
     kmeans = KMeans(n_clusters=2, max_iter=300, random_state=0)
     prds = kmeans.fit_predict(X)
@@ -119,7 +116,6 @@ def scale(X):
 def extract(infile):
     foldfile=runRNAfold(infile)
     seqDict=read(foldfile)
-    #you have to handle y yourself
     x=[]
     for seq in seqDict:
         (parens,energy)=seqDict[seq]
@@ -148,31 +144,13 @@ def main(positive,negative):
     X=np.concatenate([positiveX,negativeX])
     y=np.concatenate([positiveY,negativeY])
     randomForest(X,y)   
-    # specpred=spec(X)
-    # print('spectral score:')
-    # print(score(specpred,y))
     kmeanspred=kmeans(X)
     s=score(kmeanspred,y)
     print('unsuperivised methods score: %.3f' %s)
-    # print(hscore(kmeanspred,y))
-    # print(vscore(kmeanspred,y))
-    # print(cscore(kmeanspred,y))
-    # dbscanpred=dbscan(X)
-    # print('dbscan score:')
-    # print(score(dbscanpred,y))
-    # print(hscore(dbscanpred,y))
-    # print(vscore(dbscanpred,y))
-    # print(cscore(dbscanpred,y))
-    # aggpred=agg(X)
-    # print('agg score:')
-    # print(score(aggpred,y))
-    # print(hscore(aggpred,y))
-    # print(vscore(aggpred,y))
-    # print(cscore(aggpred,y))
     
 
 if __name__=='__main__':
     if len(sys.argv)!=3:
-        sys.exit('usage: python ML.py <positive> <negative>')
+        sys.exit('usage: python CLI.py <positive> <negative>')
     else:
         main(sys.argv[1],sys.argv[2])

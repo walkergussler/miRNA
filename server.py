@@ -77,7 +77,6 @@ def randomForest(X,Y):
     model = RandomForestClassifier(n_estimators=num_trees, max_features=3)
     model.fit(X_train, Y_train)
     predicted = model.predict(X_test)
-    #print "Prediction is", predicted
     kfold = KFold(n_splits=5, random_state=7)
     model = RandomForestClassifier(n_estimators=num_trees, max_features=3)
     results = cross_val_score(model, X, Y, cv=kfold)
@@ -127,7 +126,6 @@ def scale(X):
 def extract(infile):
     foldfile=runRNAfold(infile)
     seqDict=read(foldfile)
-    #you have to handle y yourself
     x=[]
     for seq in seqDict:
         (parens,energy)=seqDict[seq]

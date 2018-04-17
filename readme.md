@@ -5,7 +5,7 @@ Additionally, there are 3 scripts. You can run this program as a regular command
 You could also set up a server and a client and perform operations remotely through a server if you wish.
 Usage instructions are designed to print if you give malformed input or no input, so just run the program from the command line to see usage instructions. Example:
 
-##usage
+## usage
 
 ```python CLI.py```
 

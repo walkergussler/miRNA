@@ -101,7 +101,8 @@ def kmeans(X):
 
 def savekmeans(X):
     kmeans = KMeans(n_clusters=2, max_iter=300, random_state=0)
-    return kmeans.fit(X)
+    model=kmeans.fit(X)
+    return pickle.dumps(model)
     
 def agg(X):
     agg = AGG(n_clusters=2)
@@ -182,12 +183,14 @@ def posNegUnknown(positive,negative,unknownFile,method):
     negativeY=np.zeros(np.shape(negativeX)[0])
     X=np.concatenate([positiveX,negativeX])
     y=np.concatenate([positiveY,negativeY])
-
     if method=='rf':
         pickl=saveRandomForest(X,y)
     elif method=='km':
         pickl=savekmeans(X)
+    print('-')
+
     classifier=pickle.loads(pickl)
+    print('-')
     
     foldfile=runRNAfold(unknownFile)
     seqDict=read(foldfile)
@@ -209,7 +212,7 @@ def posNegUnknown(positive,negative,unknownFile,method):
         guess=classifier.predict(row.reshape(1,-1))
         out.append('>'+dic[int(guess[0])])
         out.append(seq)
-    print(len(out))
+    #print(len(out))
     return out
     
 def main(positive,negative,unknown,method):

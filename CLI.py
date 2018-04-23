@@ -161,6 +161,8 @@ def posNeg(positive,negative):
     kmeanspred=kmeans(X)
     unsupacc=score(kmeanspred,y)
     print('finished classifying')
+    print('Random Forest accuracy: %.3f' %supacc)
+    print('KMeans accuracy: %.3f' %unsupacc)
     return(map(float,[supacc,unsupacc]))
     
 def posNegUnknown(positive,negative,unknownFile,method):
@@ -205,6 +207,6 @@ if __name__=='__main__':
         print('usage: python CLI.py <positive> <negative> <unknown> <method>')
         sys.exit("method can be 'rf' for random forest (supervised) or 'km' for kmeans (unsupervised)")
     elif len(sys.argv)==3:
-        print(posNeg(sys.argv[1],sys.argv[2]))
+        supacc,unsupacc=posNeg(sys.argv[1],sys.argv[2])
     elif len(sys.argv)==5:
         posNegUnknown(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4])

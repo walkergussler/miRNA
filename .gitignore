@@ -1,2 +1,5 @@
 other/*
 play/*
+*.save*
+export/
+
